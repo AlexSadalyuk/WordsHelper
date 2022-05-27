@@ -2,8 +2,8 @@ using WordsHelper.Core.Models;
 
 namespace WordsHelper.Core.Interfaces;
 
-public interface IUnitOfWork<TEntity> where TEntity : BaseEntity
+public interface IUnitOfWork
 {
-    IRepository<TEntity> GetRepository();
-    Task<bool> SaveChanges();
+    IRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity;
+    Task SaveChanges();
 }
