@@ -1,7 +1,8 @@
-using WordsHelper.Core.Interfaces;
-using WordsHelper.Core.Models;
+using Core.Interfaces;
+using Core.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace WordsHelper.Persistence.Specification;
+namespace Persistence.Specification;
 
 public static class SpecificationEvaluator
 {

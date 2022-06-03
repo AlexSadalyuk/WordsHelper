@@ -1,7 +1,7 @@
+using Core.Models;
 using System.Linq.Expressions;
-using WordsHelper.Core.Models;
 
-namespace WordsHelper.Core.Interfaces;
+namespace Core.Interfaces;
 
 public interface ISpecification<TEntity> where TEntity : BaseEntity
 {

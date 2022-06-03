@@ -1,9 +1,9 @@
+using Core.Interfaces;
+using Core.Models;
 using Microsoft.EntityFrameworkCore;
-using WordsHelper.Core.Interfaces;
-using WordsHelper.Core.Models;
-using WordsHelper.Persistence.Specification;
+using Persistence.Specification;
 
-namespace WordsHelper.Persistence;
+namespace Persistence;
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {
@@ -26,7 +26,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
     {
         return await DbContext
             .Set<TEntity>()
-            .FirstOrDefaultAsync();
+            .SingleOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<TEntity> Add(TEntity entity)
@@ -49,7 +49,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
     {
         var toRemove = await Get(id);
 
-        if (toRemove == null) return null!;
+        if (toRemove == null) return null;
 
         var removedEntity = DbContext.Set<TEntity>().Remove(toRemove);
         return removedEntity.Entity;

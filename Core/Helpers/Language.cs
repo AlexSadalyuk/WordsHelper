@@ -1,4 +1,4 @@
-namespace WordsHelper.Core.Helpers;
+namespace Core.Helpers;
 
 public enum Language : byte
 {

@@ -1,30 +1,23 @@
+using Core.Interfaces;
+using Core.Models;
 using System.Linq.Expressions;
-using WordsHelper.Core.Interfaces;
-using WordsHelper.Core.Models;
 
-namespace WordsHelper.Persistence.Specification;
+namespace Persistence.Specification;
 
 public class SpecificationBuilder<TEntity> : ISpecificationBuilder<TEntity> where TEntity : BaseEntity
 {
-    private ISpecification<TEntity> _specification;
+    private ISpecification<TEntity> _specification = new Specification<TEntity>();
 
-    private SpecificationBuilder(ISpecification<TEntity> specification) 
-    { 
-        if(specification == null) throw new ArgumentNullException(nameof(specification));
-
-        _specification = specification;
-    }
-
-    public static SpecificationBuilder<TEntity> Build<TSpecification>() 
+    public static SpecificationBuilder<TEntity> Build<TSpecification>()
         where TSpecification : ISpecification<TEntity>
     {
         var specificationType = typeof(TSpecification).MakeGenericType();
 
         var specificationInstance = Activator.CreateInstance(specificationType);
 
-        if(specificationInstance is null) throw new NullReferenceException(nameof(specificationInstance));
+        if (specificationInstance is null) throw new NullReferenceException(nameof(specificationInstance));
 
-        return new SpecificationBuilder<TEntity>((TSpecification)specificationInstance);
+        return new SpecificationBuilder<TEntity>();
     }
 
     public ISpecificationBuilder<TEntity> AddCriteria(Expression<Func<TEntity, bool>> criteria)

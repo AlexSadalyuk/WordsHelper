@@ -1,6 +1,6 @@
-using WordsHelper.Core.Models;
+using Core.Models;
 
-namespace WordsHelper.Core.Interfaces;
+namespace Core.Interfaces;
 
 public interface IUnitOfWork
 {
