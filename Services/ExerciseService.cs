@@ -34,6 +34,11 @@ public class ExerciseService : IExerciseService
         for (var i = 0; i < amount; i++)
         {
             var item = allWords[random.Next(from, to)];
+            if(collection.Any(word => word.Id == item.Id))
+            {
+                i--;
+                continue;
+            }
             collection.Add(
                 new WordDto
                 {

@@ -8,6 +8,7 @@ using Services.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
+const string allowAnyOrigin = "any";
 // Add services to the container.
 
 services.AddControllers()
@@ -23,6 +24,16 @@ services.AddScoped<IUnitOfWork, UnitOfWork>();
 services.AddScoped<IExerciseService, ExerciseService>();
 services.AddDbContext<WordsDbContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("WordsDB")));
 
+services.AddCors(options =>
+{
+    options.AddPolicy(name: allowAnyOrigin, builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,6 +42,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(allowAnyOrigin);
 
 app.UseHttpsRedirection();
 
