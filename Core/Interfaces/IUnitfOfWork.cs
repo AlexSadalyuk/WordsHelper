@@ -1,9 +1,9 @@
-using WordsHelper.Core.Models;
+using Core.Models;
 
-namespace WordsHelper.Core.Interfaces;
+namespace Core.Interfaces;
 
-public interface IUnitOfWork<TEntity> where TEntity : BaseEntity
+public interface IUnitOfWork
 {
-    IRepository<TEntity> GetRepository();
-    Task<bool> SaveChanges();
+    IRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity;
+    Task SaveChanges();
 }
